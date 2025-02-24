@@ -3,7 +3,7 @@ import useAxios from "./useAxios";
 
 const updateTaskInBackend = async ({ taskId, newState }) => {
   const axiosBase = useAxios();
-  const response = await axiosBase.patch(`/tasks/update-state/${taskId}`, {
+  const response = await axiosBase.patch(`/task/update-state/${taskId}`, {
     state: newState,
   });
   return response.data;

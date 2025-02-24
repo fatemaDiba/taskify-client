@@ -1,15 +1,15 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Task from "./Task";
-import UpdateModal from "./UpdateModal";
 import useAxios from "../hooks/useAxios";
+import useUser from "../hooks/useUser";
 
 const Column = ({ state, tasks, moveTask, taskRefetch }) => {
   const axiosBase = useAxios();
-  const modalRef = useRef();
   const [addTask, setAddTask] = useState(false);
+  const [userData, userLoading] = useUser();
   const [, drop] = useDrop(() => ({
     accept: "TASK",
     drop: (item) => moveTask(item.id, state),
@@ -23,7 +23,7 @@ const Column = ({ state, tasks, moveTask, taskRefetch }) => {
     const userID = userData?.userID;
     const taskInfo = { ...task, userID, state: "to-do" };
 
-    const res = await axiosBase.post("/tasks", taskInfo);
+    const res = await axiosBase.post("/task", taskInfo);
     if (res?.data?.acknowledged) {
       Swal.fire({
         position: "top-end",
@@ -57,7 +57,7 @@ const Column = ({ state, tasks, moveTask, taskRefetch }) => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosBase.delete(`/tasks/${id}`);
+        const res = await axiosBase.delete(`/task/${id}`);
         if (res.data?.deletedCount) {
           Swal.fire({
             title: "Deleted!",
@@ -79,14 +79,13 @@ const Column = ({ state, tasks, moveTask, taskRefetch }) => {
         {state.replace("-", " ")}
       </h2>
 
-      <UpdateModal modalRef={modalRef} />
-
       <div className="flex-grow space-y-4">
         {tasks.map((task) => (
           <Task
             key={task._id}
             task={task}
             handleDeleteTask={handleDeleteTask}
+            taskRefetch={taskRefetch}
           />
         ))}
       </div>

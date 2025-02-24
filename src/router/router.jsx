@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import TaskManager from "../task-manager/TaskManager";
+import SignIn from "../sign-in/SignIn";
 
 const router = createBrowserRouter([
   {
@@ -15,14 +16,10 @@ const router = createBrowserRouter([
         path: "/task-manager",
         element: <TaskManager />,
       },
-      //   {
-      //     path: "/sign-in",
-      //     element: (
-      //       <PrivateAlt>
-      //         <SignIn />
-      //       </PrivateAlt>
-      //     ),
-      //   },
+      {
+        path: "/sign-in",
+        element: <SignIn />,
+      },
     ],
   },
 ]);

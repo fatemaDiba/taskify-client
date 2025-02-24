@@ -11,7 +11,7 @@ const useTasksByUserID = (userID) => {
   } = useQuery({
     queryKey: ["tasks", userID],
     queryFn: async () => {
-      const res = await axiosBase.get(`/tasks/${userID}`);
+      const res = await axiosBase.get(`/task/${userID}`);
       return res.data;
     },
     enabled: !!userID,
