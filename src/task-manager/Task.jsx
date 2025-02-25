@@ -44,25 +44,25 @@ const Task = ({ task, handleDeleteTask, taskRefetch }) => {
           isDragging ? "opacity-90 drop-shadow-md" : ""
         }`}
       >
-        <div className="bg-white p-4 mb-2 rounded-md shadow-sm cursor-grab w-11/12">
-          <div className="flex items-center">
+        <div className="p-4 mb-2 rounded-md shadow-sm cursor-grab flex justify-between items-center w-full">
+          <div className="">
             <h4 className="text-lg font-semibold w-8/12">{task.title}</h4>
+            <p>{task.description}</p>
           </div>
-          <p>{task.description}</p>
-        </div>
-        <div className="flex flex-col justify-between gap-8">
-          <FaTrash
-            onClick={() => handleDeleteTask(task._id)}
-            className={`cursor-pointer text-xl  text-red-700 transition-transform duration-300 hover:scale-150 ${
-              isDragging ? "hidden" : ""
-            }`}
-          />
-          <FaEdit
-            onClick={() => modalRef.current.showModal()}
-            className={`cursor-pointer text-xl text-green-700 transition-transform duration-300 hover:scale-150 ${
-              isDragging ? "hidden" : ""
-            }`}
-          />
+          <div className="flex flex-col justify-between gap-8">
+            <FaTrash
+              onClick={() => handleDeleteTask(task._id)}
+              className={`cursor-pointer text-xl  text-red-700 transition-transform duration-300 hover:scale-150 ${
+                isDragging ? "hidden" : ""
+              }`}
+            />
+            <FaEdit
+              onClick={() => modalRef.current.showModal()}
+              className={`cursor-pointer text-xl text-green-700 transition-transform duration-300 hover:scale-150 ${
+                isDragging ? "hidden" : ""
+              }`}
+            />
+          </div>
         </div>
       </div>
       {task && (
